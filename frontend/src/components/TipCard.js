@@ -18,7 +18,7 @@ import moment from "moment";
 import { getTips, deleteTip } from "../redux/features/tipSlice";
 import { toast } from "react-toastify";
 import Popup from "../utilis/updateDelete";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Tooltip } from "react-tooltip";
 import Image from "next/image";
 import calendar from "../public/calendar.svg"
@@ -151,7 +151,9 @@ const TipCard = ({
                   </div>
                   <div className="flex popup-text">
                     <img src="/settings-01.png" alt="Settings icon" />
-                    <Link to={`/editTip/${_id}`}> Ažuriraj</Link>
+                    <Link href={`/editTip/${_id}`}>
+                       <a>Ažuriraj</a>
+                    </Link>
                   </div>
                   {!isActive && user?.result?.role === "admin" && (
                     <TipStatus
@@ -252,7 +254,6 @@ const TipCard = ({
           <div className="likeCount">{dislikeButton(dislikeCount, _id)}</div>
         </div>
         <button onClick={() => {
-  console.log("Kliknuto je na dugme 'Detaljnije'");
   openModal();
 }} className="btn-style">
   Detaljnije

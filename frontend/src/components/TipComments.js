@@ -14,9 +14,12 @@ import {
   MDBModalFooter,
   MDBBtn,
 } from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import moment from "moment";
 import "moment/locale/sr";
+import Image from "next/image";
+import userOne from "../public/UserCircle.svg";
+import paper from "../public/PaperPlaneRight.svg";
 
 const TipComments = ({ tipId, createdAtComment }) => {
   const dispatch = useDispatch();
@@ -173,7 +176,7 @@ const TipComments = ({ tipId, createdAtComment }) => {
               <div key={index} className="comment">
                 <div className="flex-spaceB">
                   <span className="flex">
-                    <img src="/UserCircle.svg" alt="avatar" />
+                    <Image src={userOne} alt="avatar" />
                     <small>{comment.user}</small>
                   </span>
                   <p className="time-comment">
@@ -225,12 +228,12 @@ const TipComments = ({ tipId, createdAtComment }) => {
           />
           {user ? (
             <button className="send-btn" onClick={handleAddComment}>
-              <img src="/PaperPlaneRight.svg" alt="sendBtn" />
+              <Image src={paper} alt="sendBtn" />
             </button>
           ) : (
-            <Link to="/login" className="btn-style disabled-link">
-              <p>Uloguj se</p>
-            </Link>
+            <Link href="/login" className="btn-style disabled-link">
+            <p>Uloguj se</p>
+          </Link>
           )}
         </MDBModalFooter>
       </MDBModalContent>

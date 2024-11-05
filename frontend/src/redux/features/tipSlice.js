@@ -105,15 +105,15 @@ export const getComments = createAsyncThunk(
   "tip/getComments",
   async (tipId, { rejectWithValue }) => {
     try {
-      console.log(`Fetching comments for tip with ID: ${tipId}`);
+      //console.log(`Fetching comments for tip with ID: ${tipId}`);
 
       const response = await api.getComments(tipId);
 
-      console.log("Comments fetched successfully:", response.data);
+      //console.log("Comments fetched successfully:", response.data);
 
       return { tipId, comments: response.data };
     } catch (err) {
-      console.error("Error fetching comments:", err.response.data);
+      //console.error("Error fetching comments:", err.response.data);
       return rejectWithValue(err.response.data);
     }
   }
@@ -203,7 +203,7 @@ const tipSlice = createSlice({
     },
     [deleteTip.fulfilled]: (state, action) => {
       state.loading = false;
-      console.log("action", action);
+      //console.log("action", action);
       const {
         arg: { id },
       } = action.meta;
@@ -221,7 +221,7 @@ const tipSlice = createSlice({
     },
     [updateTip.fulfilled]: (state, action) => {
       state.loading = false;
-      console.log("action", action);
+      //console.log("action", action);
       const {
         arg: { id },
       } = action.meta;
@@ -306,7 +306,7 @@ const tipSlice = createSlice({
       state.loading = true;
     },
     [addCommentToTip.fulfilled]: (state, action) => {
-      console.log("Add comment to tip fulfilled:", action.payload);
+      //console.log("Add comment to tip fulfilled:", action.payload);
       const updatedTip = action.payload;
 
       if (updatedTip) {
@@ -336,10 +336,10 @@ const tipSlice = createSlice({
         : "Nepoznata greška";
     },
     [getComments.fulfilled]: (state, action) => {
-      console.log("Get comments fulfilled:", action.payload);
+      //console.log("Get comments fulfilled:", action.payload);
 
       const { tipId, comments } = action.payload;
-      console.log("Received tipId:", tipId);
+     // console.log("Received tipId:", tipId);
 
       state.comments = {
         ...state.comments,

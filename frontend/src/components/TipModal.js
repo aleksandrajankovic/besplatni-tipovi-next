@@ -14,9 +14,15 @@ import TipComments from "./TipComments";
 import moment from "moment";
 import useTipActions from "../utilis/tipActions";
 import Popup from "../utilis/updateDelete";
-import { Link } from "react-router-dom";
+import Link from 'next/link';
 import TipStatusInfo from "../utilis/tipStatusInfo";
 import { Tooltip } from "react-tooltip";
+import Image from "next/image";
+import calendar from "../public/calendar.svg";
+import icon from "../public/icon.svg";
+import dots from "../public/dots-vertical.png";
+import user from "../public/user-01.png";
+import settings from "../public/settings-01.png";
 
 const TipModal = ({
   isActive,
@@ -45,9 +51,7 @@ const TipModal = ({
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const popupRef = useRef(null);
 
-  useEffect(() => {
-    console.log("TipModal opened", { _id, centredModal });
-  }, [centredModal, _id]);
+ 
 
   const handleModalClick = (event) => {
     if (event.target.classList.contains("flex-i")) {
@@ -90,11 +94,7 @@ const TipModal = ({
                     </span>
                   </div>
                   {user?.result?.role === "admin" && (
-                    <img
-                      src="/dots-vertical.png"
-                      alt="Options"
-                      onClick={togglePopup}
-                    />
+                    <Image src={dots} alt="Options" onClick={togglePopup} />
                   )}
                 </MDBModalHeader>
 
@@ -102,13 +102,13 @@ const TipModal = ({
                   <div className="bigmodal-container">
                     <MDBCardTitle className="flex-start mb-3">
                       <div className="flex">
-                        <img src="/calendar.svg" alt="Calendar icon" />
+                        <Image src={calendar} alt="Calendar icon" />
                         <p className="time-text">
                           {moment(tipDate).format("DD.MM.YYYY")}
                         </p>
                       </div>
                       <div className="flex">
-                        <img src="/Icon.svg" alt="Time icon" />
+                        <Image src={icon} alt="Time icon" />
                         <p className="time-text">
                           {timeRemaining
                             ? `${timeRemaining.days}d ${timeRemaining.hours}h ${timeRemaining.minutes}m`
@@ -119,14 +119,16 @@ const TipModal = ({
                         <div ref={popupRef} className="popup-position">
                           <Popup>
                             <div className="flex popup-text">
-                              <img src="/user-01.png" alt="User icon" />
+                              <Image src={user} alt="User icon" />
                               <a href="#" onClick={() => handleDelete(_id)}>
                                 Izbriši
                               </a>
                             </div>
                             <div className="flex popup-text">
-                              <img src="/settings-01.png" alt="Settings icon" />
-                              <Link to={`/editTip/${_id}`}> Ažuriraj</Link>
+                              <Image src={settings} alt="Settings icon" />
+                              <Link href={`/editTip/${_id}`}>
+                                <a>Ažuriraj</a>
+                              </Link>
                             </div>
                           </Popup>
                         </div>
