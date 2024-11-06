@@ -1,66 +1,51 @@
 "use client";
-
-import React, { useState } from "react";
-import {
-
-  MDBBtn,
-  MDBInput,
-  
-} from "mdb-react-ui-kit";
-
+import React, { useState, useEffect } from "react";
+import { MDBBtn, MDBInput } from "mdb-react-ui-kit";
 import filterTips from "../utilis/filterTipovi";
 import filterPretrage from "../utilis/FilterPretrage";
+import Home from "../modules/Home"; // Dodajemo `Home` direktno ovde
 
 const Filter = ({ tips }) => {
   const [currentFilter, setCurrentFilter] = useState("Svi");
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredTips, setFilteredTips] = useState(tips); // Kreiramo stanje za filtrirane podatke
 
-  const handleFilter = (filter) => {
-    setCurrentFilter(filter);
-  };
-
-  const handleSearch = (term) => {
-    setSearchTerm(term);
-  };
-
-  let filteredTips = filterPretrage(tips, searchTerm);
-  filteredTips = filterTips(filteredTips, currentFilter);
+  useEffect(() => {
+    let filtered = filterPretrage(tips, searchTerm);
+    filtered = filterTips(filtered, currentFilter);
+    setFilteredTips(filtered);
+  }, [currentFilter, searchTerm, tips]);
 
   return (
-    <div className="mb-3 flex column">
-    <MDBInput
-      label="Pretraga"
-      type="text"
-      id="pretraga"
-      value={searchTerm}
-      icon="search"
-      onChange={(e) => handleSearch(e.target.value)}
-      contrast
-    />
+    <>
+    <div className="mb-3 column home-wrapper">
     <div className="flex">
-      <MDBBtn
-        color="light"
-        rippleColor="dark"
-        onClick={() => handleFilter("Svi")}
-      >
-        Svi
-      </MDBBtn>
-      <MDBBtn
-        color="light"
-        rippleColor="dark"
-        onClick={() => handleFilter("Aktivni")}
-      >
-        Aktivni
-      </MDBBtn>
-      <MDBBtn
-        color="light"
-        rippleColor="dark"
-        onClick={() => handleFilter("Istekli")}
-      >
-        Istekli
-      </MDBBtn>
-    </div>
-  </div>
+      <MDBInput
+        label="Pretraga"
+        type="text"
+        id="pretraga"
+        value={searchTerm}
+        icon="search"
+        onChange={(e) => setSearchTerm(e.target.value)}
+        contrast
+      />
+     
+        <MDBBtn color="light" rippleColor="dark" onClick={() => setCurrentFilter("Svi")}>
+          Svi
+        </MDBBtn>
+        <MDBBtn color="light" rippleColor="dark" onClick={() => setCurrentFilter("Aktivni")}>
+          Aktivni
+        </MDBBtn>
+        <MDBBtn color="light" rippleColor="dark" onClick={() => setCurrentFilter("Istekli")}>
+          Istekli
+        </MDBBtn>
+      </div>
+      </div>
+      {/* Prosleđujemo `filteredTips` u `Home` komponentu */}
+
+      <Home fetchedTips={filteredTips} />
+      </>
+  
   );
 };
 

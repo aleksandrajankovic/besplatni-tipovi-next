@@ -5,7 +5,6 @@ import {
   MDBRow,
   MDBTypography,
 } from "mdb-react-ui-kit";
-import { useDispatch, useSelector } from "react-redux";
 import TipCard from "../components/TipCard";
 import Loadmore from "../components/Loadmore";
 

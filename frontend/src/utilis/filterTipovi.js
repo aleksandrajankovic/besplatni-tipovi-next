@@ -7,7 +7,7 @@ const filterTips = (tips, filter) => {
   } else if (filter === "Istekli") {
     return tips.filter((tip) => new Date() >= new Date(tip.tipDate));
   }
-
+  console.log(new Date(tip.tipDate), new Date());
   return [];
 };
 

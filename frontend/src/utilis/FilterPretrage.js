@@ -1,5 +1,6 @@
 "use client";
 const filterPretrage = (data, searchTerm) => {
+  console.log(data, searchTerm);
   return data.filter(
     (elem) =>
       (elem.rival1 &&
